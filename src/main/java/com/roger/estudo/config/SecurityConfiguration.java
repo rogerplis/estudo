@@ -1,8 +1,10 @@
 package com.roger.estudo.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;  
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -21,9 +23,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-        .csrf(csrf -> csrf.disable()) // Desabilita CSRF (se necessário)
+        .csrf(AbstractHttpConfigurer::disable) // Desabilita CSRF (se necessário)
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/**").permitAll() // Permite acesso público a `/api/auth/**`
+            .requestMatchers("/api/v1/auth/**").permitAll() // Permite acesso público a `/api/auth/**`
             .anyRequest().authenticated() // Requer autenticação para qualquer outra requisição
         )
         .sessionManagement(session -> session

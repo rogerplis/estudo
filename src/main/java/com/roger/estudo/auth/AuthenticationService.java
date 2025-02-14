@@ -3,7 +3,7 @@ package com.roger.estudo.auth;
 import com.roger.estudo.config.JwtService;
 import com.roger.estudo.model.Role;
 import com.roger.estudo.model.User;
-import com.roger.estudo.model.UserRepository;
+import com.roger.estudo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

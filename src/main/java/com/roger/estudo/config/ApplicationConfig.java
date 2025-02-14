@@ -1,6 +1,6 @@
 package com.roger.estudo.config;
 
-import org.springframework.context.annotation.Configutation;
+import org.springframework.context.annotation.Configuration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,17 +11,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.roger.estudo.model.UserRepository;
+import com.roger.estudo.repositories.UserRepository;
 
-@Configutation
+@Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
 
-    public ApplicationConfig(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
