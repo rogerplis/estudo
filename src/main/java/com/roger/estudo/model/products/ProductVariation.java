@@ -1,5 +1,6 @@
 package com.roger.estudo.model.products;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class ProductVariation {
     private String gender;
     private String status;
 
+    @JsonIgnore
     @ManyToOne
     private  Product product;
 

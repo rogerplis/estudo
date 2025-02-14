@@ -1,5 +1,8 @@
 package com.roger.estudo.Dtos;
 
+import com.roger.estudo.model.products.ProductImages;
+
+import java.util.List;
 import java.util.Set;
 
 public record ProductRequestDto(
@@ -21,6 +24,9 @@ public record ProductRequestDto(
         Double width,
         Double height,
         Double volume,
-        Set<Long> categoriesId
+        List<Long> categoriesId,
+        List<ProductImages> images
+
 ) {
+
 }

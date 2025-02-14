@@ -1,4 +1,4 @@
 package com.roger.estudo.Dtos;
 
-public record ProductImagemDto() {
+public record ProductImagemDto(String url, String alt) {
 }

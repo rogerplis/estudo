@@ -14,6 +14,7 @@ public class ProductAttributes {
     private Long id;
     private String name;
     private String value;
+    private String unit;
 
     @JsonIgnore
     @ManyToOne

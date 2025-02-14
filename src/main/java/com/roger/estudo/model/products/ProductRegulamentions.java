@@ -1,5 +1,6 @@
 package com.roger.estudo.model.products;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class ProductRegulamentions {
     private String regulationName;
     private String regulationValue;
 
+    @JsonIgnore
     @ManyToOne
     private Product product;
 

@@ -1,15 +1,19 @@
 package com.roger.estudo.model.products;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_products")
 @Data
 @Builder
+@AllArgsConstructor
 public class Product {
 
     @Id
@@ -23,9 +27,9 @@ public class Product {
     private String color;
     private String model;
     private String type;
-    private String netWeight;
+    private Double netWeight;
     private Double grossWeight;
-    private Double weightUnit;
+    private String weightUnit;
     private Double length;
     private Double width;
     private Double height;
@@ -39,19 +43,19 @@ public class Product {
     // RELACIONAMENTOS
     @ManyToMany
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> category;
+    private List<Category> category = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductImages> images;
+    private List<ProductImages> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
-    private  Set<ProductVariation> variations;
+    private  List<ProductVariation> variations = new ArrayList<>();
 
     @OneToMany
-    private Set<ProductAttributes> attributes;
+    private List<ProductAttributes> attributes = new ArrayList<>();
 
     @OneToMany
-    private Set<ProductRegulamentions> regulamentions;
+    private List<ProductRegulamentions> regulamentions = new ArrayList<>();
 
     public Product() {
 

@@ -1,11 +1,17 @@
 package com.roger.estudo.model.products;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "tb_product_images")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class ProductImages {
 
     @Id
@@ -14,6 +20,7 @@ public class ProductImages {
     private String url;
     private String alt;
 
+    @JsonIgnore
     @ManyToOne
     private Product product;
 }

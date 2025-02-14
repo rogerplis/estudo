@@ -9,6 +9,7 @@ import com.roger.estudo.services.products.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,12 +32,12 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         BeanUtils.copyProperties(productDto, product);
 
-        Set<Category> categories = productDto.categoriesId().stream().map(id -> {
+        List<Category> categories = productDto.categoriesId().stream().map(id -> {
             Category category = new Category();
             category.setId(id);
             return category;
-        }).collect(Collectors.toSet());
-
+        }).collect(Collectors.toList());
+        product.setDate_create(LocalDate.now().toString());
 
         product.setCategory(categories);
         return repository.save(product);
@@ -54,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        return List.of((Product) repository.findAll());
+        return  repository.findAll();
     }
 
     @Override
