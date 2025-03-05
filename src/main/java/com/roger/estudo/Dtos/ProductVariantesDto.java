@@ -1,4 +1,7 @@
 package com.roger.estudo.Dtos;
 
-public record ProductVariantesDTO() {
+import java.util.List;
+
+public record ProductVariantesDto(String sku, String status, List<ProductsAttributesDto> attributesList) {
+
 }

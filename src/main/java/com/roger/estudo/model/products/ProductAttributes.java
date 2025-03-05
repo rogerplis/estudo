@@ -2,11 +2,16 @@ package com.roger.estudo.model.products;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "tb_product_attributes")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class ProductAttributes {
 
     @Id
@@ -22,5 +27,7 @@ public class ProductAttributes {
 
     @JsonIgnore
     @ManyToOne
-    private ProductVariation variation;
+    private ProductVariation productVariation;
+
+
 }

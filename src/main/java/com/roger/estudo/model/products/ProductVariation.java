@@ -2,27 +2,32 @@ package com.roger.estudo.model.products;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_product_variation")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ProductVariation {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String sku;
-    private String color;
-    private String size;
-    private String gender;
     private String status;
 
     @JsonIgnore
     @ManyToOne
     private  Product product;
 
+    @JsonIgnore
     @OneToMany
-    private Set<ProductAttributes> attributes;
+    private List<ProductAttributes> attributes;
 
 }

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tb_category")
 @Data
@@ -15,6 +18,6 @@ public class Category {
     private String name;
 
     @JsonIgnore
-    @ManyToOne
-    private Product product;
+    @ManyToMany
+    private List<Product> products = new ArrayList<>(); //Product product;
 }

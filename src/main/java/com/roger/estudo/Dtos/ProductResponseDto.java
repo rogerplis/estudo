@@ -1,10 +1,8 @@
 package com.roger.estudo.Dtos;
 
 import com.roger.estudo.model.products.Category;
-import com.roger.estudo.model.products.ProductImages;
 
 import java.util.List;
-import java.util.Set;
 
 public record ProductResponseDto(
         Long id,
@@ -29,6 +27,10 @@ public record ProductResponseDto(
                                  String date_update,
                                  String date_create,
                                  List<Category> categories,
-                                 List<ProductImagemDto> images) {
+                                 List<ProductImagemDto> images,
+                                 List<ProductsAttributesDto> attributes,
+                                 List<ProductVariantesDto> variations)
+
+{
 
 }

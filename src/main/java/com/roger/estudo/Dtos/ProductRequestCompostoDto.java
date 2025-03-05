@@ -2,7 +2,7 @@ package com.roger.estudo.Dtos;
 
 import java.util.List;
 
-public record ProductRequestDto(
+public record ProductRequestCompostoDto(
         String name,
         Double price,
         String description,
@@ -26,7 +26,8 @@ public record ProductRequestDto(
         List<ProductImagemDto> images,
         List<ProductsAttributesDto> attributes,
         List<ProductVariantesDto> variations,
-        List<ProductRegulamentionsDto> regulations
+        List<ProductRegulamentionsDto> regulations,
+        List<Long> components
 
 ) {
 

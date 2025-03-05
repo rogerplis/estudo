@@ -1,20 +1,13 @@
 package com.roger.estudo.controllers.products;
 
-import com.roger.estudo.Dtos.ProductImagemDto;
-import com.roger.estudo.Dtos.ProductRequestDto;
-import com.roger.estudo.Dtos.ProductResponseDto;
+import com.roger.estudo.Dtos.*;
 import com.roger.estudo.model.products.Product;
-import com.roger.estudo.model.products.ProductImages;
-import com.roger.estudo.services.products.ProductImagesService;
-import com.roger.estudo.services.products.ProductService;
+import com.roger.estudo.services.products.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 
 
 @RestController
@@ -26,63 +19,63 @@ public class ProductController {
 
     private final ProductImagesService productImagesService;
 
-    public ProductController(ProductService productService, ProductImagesService productImagesService) {
+    private final ProductAttributesService productAttributesService;
+
+    private final ProductVariantService productVariantService;
+
+    private final ProductRegulamentionsService productRegulamentionsService;
+
+
+
+    public ProductController(ProductService productService, ProductImagesService productImagesService, ProductAttributesService productAttributesService, ProductVariantService productVariantService, ProductRegulamentionsService productRegulamentionsService) {
         this.productService = productService;
         this.productImagesService = productImagesService;
+        this.productAttributesService = productAttributesService;
+        this.productVariantService = productVariantService;
+        this.productRegulamentionsService = productRegulamentionsService;
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<?>> findAll() {
-        if(productService.findAll().isEmpty()) return ResponseEntity.noContent().build();
+        if (productService.findAll().isEmpty()) return ResponseEntity.noContent().build();
 
-        List<Product> products = productService.findAll();
-
-        List<ProductResponseDto> productResponseDtos = products.stream()
-                .map(product -> new ProductResponseDto(
-                        product.getId(),
-                        product.getName(),
-                        product.getPrice(),
-                        product.getDescription(),
-                        product.getSku(),
-                        product.getBrand(),
-                        product.getModel(),
-                        product.getColor(),
-                        product.getSize(),
-                        product.getGender(),
-                        product.getStatus(),
-                        product.getType(),
-                        product.getNetWeight(),
-                        product.getGrossWeight(),
-                        product.getWeightUnit(),
-                        product.getLength(),
-                        product.getWidth(),
-                        product.getHeight(),
-                        product.getVolume(),
-                        product.getDate_create(),
-                        product.getDate_update(),
-                        product.getCategory(),
-                        product.getImages().stream()
-                                .map(img -> new ProductImagemDto(img.getAlt(), img.getUrl()))
-                        .toList()
-                )).toList();
-
-        return ResponseEntity.ok(productService.findAll());}
+        return ResponseEntity.ok(productService.findAll());
+    }
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ProductRequestDto productDto) {
-        if(productService.existsBySku(productDto.sku())) return ResponseEntity.badRequest().body("Product already exists");        Product product = productService.save(productDto);
+        // validaçoes iniciais
+        if (productService.existsBySku(productDto.sku()))
+            return ResponseEntity.badRequest().body("Product already exists");
+        // recupera as imagens
+        List<ProductImagemDto> images = productDto.images().stream().toList();
+        if (images.isEmpty()) return ResponseEntity.badRequest().body("Product must have at least one image");
+        // recupera os atributos do produto
+        // alguns marketplaces tem atributos obrigatórios, eles serao passados via api de categorização
+        List<ProductsAttributesDto> attributes = productDto.attributes().stream().toList();
+        if (attributes.isEmpty()) return ResponseEntity.badRequest().body("Product must have at least one attribute");
 
 
-        Set<ProductImages> images = productDto.images().stream().map(imgDto -> {
-            ProductImages image = new ProductImages();
-            image.setProduct(product);
-            image.setUrl(imgDto.getUrl());
-            image.setAlt(imgDto.getAlt());
-            return image;
-        }).collect(Collectors.toSet());
+        // Salva o producto principal
+        Product product = productService.save(productDto);
+        // salva as imagens do produto
+        productImagesService.saveAll(images, product);
 
-       // salva as imagens
-        productImagesService.saveAll(images);
+        // salva os atributos do produto
+        productAttributesService.saveAll(attributes, product);
+
+        // recupera as variaçoes
+        List<ProductVariantesDto> variants = productDto.variations().stream().toList(); // ProductVariantesDTO>
+       // só salva se tiver variacoes
+        if (!variants.isEmpty()){
+            // salva as variaçoes
+            productVariantService.saveAll(variants, product);
+        }
+        // recupera a regulamentacao
+        List<ProductRegulamentionsDto> regulamentions = productDto.regulations().stream().toList();
+        // salva as regulamentacoes
+        if(!regulamentions.isEmpty())
+            productRegulamentionsService.saveAll(regulamentions, product);
 
 
         return ResponseEntity.ok("Product saved");

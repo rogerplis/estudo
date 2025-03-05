@@ -1,5 +1,7 @@
 package com.roger.estudo.services.products.impl;
 
+import com.roger.estudo.Dtos.ProductImagemDto;
+import com.roger.estudo.model.products.Product;
 import com.roger.estudo.model.products.ProductImages;
 import com.roger.estudo.repositories.products.ProductImageRepository;
 import com.roger.estudo.services.products.ProductImagesService;
@@ -7,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -26,11 +27,17 @@ public class ProductsImagesServiceImpl implements ProductImagesService {
     }
 
     @Override
-    public List<?> saveAll(Set<ProductImages> images) {
+    public void saveAll(List<ProductImagemDto> images, Product product) {
 
-        List<ProductImages> productImages = new ArrayList<>(images);
+        List<ProductImages> productImages = images.stream().map(img -> {
+            ProductImages image = new ProductImages();
+            image.setProduct(product);
+            image.setUrl(img.url());
+            image.setAlt(img.alt());
+            return image;
+        }).toList();
 
-        return  repository.saveAll(productImages);
+        repository.saveAll(productImages);
     }
 
     @Override

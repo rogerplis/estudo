@@ -1,4 +1,5 @@
 package com.roger.estudo.Dtos;
 
-public record ProductRegulamentionsDto() {
+public record ProductRegulamentionsDto(String regulationName , String regulationValue) {
+
 }
