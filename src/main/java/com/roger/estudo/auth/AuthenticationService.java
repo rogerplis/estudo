@@ -1,5 +1,6 @@
 package com.roger.estudo.auth;
 
+import com.roger.estudo.Dtos.user.UserDto;
 import com.roger.estudo.config.JwtService;
 import com.roger.estudo.model.Role;
 import com.roger.estudo.model.User;
@@ -42,7 +43,12 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        var userDto = toDto(user);
+        return AuthenticationResponse.builder().user(userDto).token(jwtToken).build();
+    }
+
+    public static UserDto toDto(User user){
+        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getActive(), user.getRole().name(), user.getLocked());
     }
 
 

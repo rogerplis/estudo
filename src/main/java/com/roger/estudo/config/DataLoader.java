@@ -35,6 +35,10 @@ public class DataLoader implements CommandLineRunner {
         user1.setEmail("rogerplis@hotmail.com");
         user1.setPassword(password);
         user1.setRole(Role.ADMIN);
+        user1.setActive(true);
+        user1.setLocked(false);
+
+
 
         User user2 = new User();
         user2.setFirstName("Lucas");
@@ -42,6 +46,9 @@ public class DataLoader implements CommandLineRunner {
         user2.setEmail("lucasplis@hotmail.com");
         user2.setPassword(password);
         user2.setRole(Role.USER);
+        user2.setActive(true);
+        user2.setLocked(false);
+
 
         List<String> categorias = List.of(
                 "Eletrônicos",
