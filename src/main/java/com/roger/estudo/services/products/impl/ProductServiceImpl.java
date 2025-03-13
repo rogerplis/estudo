@@ -1,6 +1,7 @@
 package com.roger.estudo.services.products.impl;
 
 import com.roger.estudo.Dtos.ProductRequestDto;
+import com.roger.estudo.Dtos.ProductUpdateDto;
 import com.roger.estudo.model.products.Category;
 import com.roger.estudo.model.products.Product;
 import com.roger.estudo.repositories.products.CategoryRepository;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,13 +44,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
+    public Product update(ProductUpdateDto productDto) {
+        Product product = new Product();
+        BeanUtils.copyProperties(productDto, product);
         return repository.save(product);
     }
 
     @Override
-    public Product findById(Long id) {
-        return repository.findById(id).orElse(null);
+    public Optional<Product> findById(Long id) {
+        return repository.findById(id);
     }
 
     @Override

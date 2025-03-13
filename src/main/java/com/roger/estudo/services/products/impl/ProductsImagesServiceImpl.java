@@ -7,8 +7,8 @@ import com.roger.estudo.repositories.products.ProductImageRepository;
 import com.roger.estudo.services.products.ProductImagesService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,6 +25,7 @@ public class ProductsImagesServiceImpl implements ProductImagesService {
     public ProductImages save(ProductImages productImages) {
         return null;
     }
+
 
     @Override
     public void saveAll(List<ProductImagemDto> images, Product product) {
@@ -46,18 +47,18 @@ public class ProductsImagesServiceImpl implements ProductImagesService {
     }
 
     @Override
-    public ProductImages findById(Long id) {
-        return null;
+    public Optional<ProductImages> findById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
     public void delete(Long id) {
-
+        repository.deleteById(id);
     }
 
     @Override
-    public void deleteAll() {
-
+    public void deleteAllImagesProduct(Long productId) {
+        repository.deleteByProductId(productId);
     }
 
     @Override

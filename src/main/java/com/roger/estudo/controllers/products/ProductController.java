@@ -81,4 +81,28 @@ public class ProductController {
         return ResponseEntity.ok("Product saved");
     }
 
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody ProductUpdateDto productDto) {
+        // validaçoes iniciais
+        if (productService.findById(id).isEmpty())
+            return ResponseEntity.badRequest().body("Product not exist");
+        productService.update(productDto);
+
+        return ResponseEntity.ok("Product updated");
+    }
+
+    @GetMapping("/find/{sku}")
+    public ResponseEntity<?> findBySku(@PathVariable(value = "sku")String sku){
+        if(productService.findBySku(sku).isEmpty()) return ResponseEntity.badRequest().body("Product not exist");
+        return ResponseEntity.ok(productService.findBySku(sku));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+        if (productService.findById(id).isEmpty()) return ResponseEntity.badRequest().body("Product not exist");
+        productService.delete(id);
+        return ResponseEntity.ok("Product deleted");
+
+    }
 }
