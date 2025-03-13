@@ -22,7 +22,9 @@ public record ProductUpdateDto(
         Double length,
         Double width,
         Double height,
-        Double volume
+        Double volume,
+        List<Long> categoriesId
+
 
 ) {
 

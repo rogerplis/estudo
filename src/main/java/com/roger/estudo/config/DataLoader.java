@@ -36,7 +36,7 @@ public class DataLoader implements CommandLineRunner {
         user1.setPassword(password);
         user1.setRole(Role.ADMIN);
         user1.setActive(true);
-        user1.setLocked(false);
+        user1.setLocked(true);
 
 
 
@@ -47,7 +47,7 @@ public class DataLoader implements CommandLineRunner {
         user2.setPassword(password);
         user2.setRole(Role.USER);
         user2.setActive(true);
-        user2.setLocked(false);
+        user2.setLocked(true);
 
 
         List<String> categorias = List.of(

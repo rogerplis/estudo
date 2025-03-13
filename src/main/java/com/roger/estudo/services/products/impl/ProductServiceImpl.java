@@ -44,9 +44,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(ProductUpdateDto productDto) {
+    public Product update(ProductUpdateDto productDto, Long id) {
         Product product = new Product();
         BeanUtils.copyProperties(productDto, product);
+        List<Category> categories = productDto.categoriesId().stream().map(catId -> {
+            Category category = new Category();
+            category.setId(catId);
+            return category;
+        }).toList();
+        product.setId(id);
+        product.setDate_update(LocalDate.now().toString());
+        product.setCategory(categories);
         return repository.save(product);
     }
 
@@ -82,6 +90,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Long id) {
-
+    repository.deleteById(id);
     }
 }

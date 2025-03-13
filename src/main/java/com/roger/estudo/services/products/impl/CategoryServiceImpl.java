@@ -3,9 +3,11 @@ package com.roger.estudo.services.products.impl;
 import com.roger.estudo.model.products.Category;
 import com.roger.estudo.repositories.products.CategoryRepository;
 import com.roger.estudo.services.products.CategoryService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -38,6 +40,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAll() {
-        return List.of((Category) categoryRepository.findAll());
+        return  categoryRepository.findAll();
     }
 }

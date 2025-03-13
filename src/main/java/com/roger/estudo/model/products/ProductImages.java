@@ -19,8 +19,7 @@ public class ProductImages {
     private Long id;
     private String url;
     private String alt;
-    @Column(columnDefinition = "boolean default false")
-    private Boolean capa;
+    private Integer position;
 
     @JsonIgnore
     @ManyToOne

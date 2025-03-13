@@ -29,6 +29,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll() // Permite acesso público a `/api/auth/**`
                         .requestMatchers("api/v1/admin/**").hasAuthority("ADMIN") // rota q só admin acessa
+                        .requestMatchers("api/v1/products/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated() // Requer autenticação para qualquer outra requisição
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))

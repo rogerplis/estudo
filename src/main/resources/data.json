@@ -1,0 +1,75 @@
+{
+  "name": "",
+    "price": 0.0,
+    "description": "",
+    "sku": "",
+    "brand": "",
+    "model": "",
+    "color": "",
+    "size": "",
+    "gender": "",
+    "status": "",
+    "type": "",
+    "netWeight": 0.0,
+    "grossWeight": 0.0,
+    "weightUnit": "",
+    "measurementUnit": "",
+    "length": 0.0,
+    "width": 0.0,
+    "height": 0.0,
+    "volume": 0.0,
+  "categories": [1,2,3],
+  "images": [
+    {
+      "url": "",
+      "alt": " ",
+      "position": 1
+    },
+    {
+      "url": "",
+      "alt": " ",
+      "position": 2
+    }
+  ],
+  "attributes": [
+    {
+      "name": "",
+      "value": "",
+      "unit": ""
+    },
+    {
+      "name": "",
+      "value": "",
+      "unit": ""
+    }
+  ],
+  "variations": [
+    {
+      "sku": "",
+      "status": "",
+      "attributes": [
+        {
+          "name": "",
+          "value": "",
+          "unit": ""
+    },
+        {
+          "name": "",
+          "value": "",
+          "unit": ""
+        }
+      ]
+    }
+  ],
+  "regulations": [
+    {
+      "name": "",
+      "value": ""
+    },
+    {
+      "name": "",
+      "value": ""
+    }
+  ]
+
+}

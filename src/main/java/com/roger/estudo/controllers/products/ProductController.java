@@ -87,7 +87,7 @@ public class ProductController {
         // validaçoes iniciais
         if (productService.findById(id).isEmpty())
             return ResponseEntity.badRequest().body("Product not exist");
-        productService.update(productDto);
+        productService.update(productDto,id);
 
         return ResponseEntity.ok("Product updated");
     }
