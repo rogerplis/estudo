@@ -19,10 +19,7 @@ public class ProductAttributesServiceImpl implements ProductAttributesService {
         this.repository = repository;
     }
 
-    @Override
-    public ProductAttributes save(ProductAttributes productAttributes) {
-        return null;
-    }
+
 
     @Override
     public void saveAll(List<ProductsAttributesDto> attributesDtos, Product product) {
@@ -38,16 +35,21 @@ public class ProductAttributesServiceImpl implements ProductAttributesService {
 
     @Override
     public void delete(Long id) {
-
+        repository.deleteById(id);
     }
 
     @Override
     public ProductAttributes findById(Long id) {
-        return null;
+        return repository.findById(id).get();
     }
 
     @Override
     public ProductAttributes update(ProductAttributes productAttributes) {
-        return null;
+        return repository.save(productAttributes);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
     }
 }
