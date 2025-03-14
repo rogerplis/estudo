@@ -1,12 +1,9 @@
 package com.roger.estudo.model.products;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.roger.estudo.Dtos.ProductRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;

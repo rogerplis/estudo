@@ -35,6 +35,7 @@ public class ProductsImagesServiceImpl implements ProductImagesService {
             image.setProduct(product);
             image.setUrl(img.url());
             image.setAlt(img.alt());
+            image.setPosition(img.position());
             return image;
         }).toList();
 

@@ -23,6 +23,7 @@ public record ProductUpdateDto(
         Double width,
         Double height,
         Double volume,
+        String date_create,
         List<Long> categoriesId
 
 

@@ -19,11 +19,9 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
-    private  final CategoryRepository categoryRepository;
 
     public ProductServiceImpl(ProductRepository repository, CategoryRepository categoryRepository) {
         this.repository = repository;
-        this.categoryRepository = categoryRepository;
     }
 
 
@@ -66,6 +64,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         return  repository.findAll();
+    }
+
+    @Override
+    public List<Product> findByNameOrSku(String name, String sku) {
+        if(name != null && sku != null){
+            return repository.findByNameContainingIgnoreCaseOrSkuContainingIgnoreCase(name, sku);
+        } else  if(name != null){
+            return repository.findByNameContainingIgnoreCase(name);
+        } else if(sku != null) {
+            return repository.findBySkuContainingIgnoreCase(sku);
+        } else {
+            return repository.findAll();
+        }
     }
 
     @Override

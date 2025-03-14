@@ -13,6 +13,7 @@ public interface ProductService {
     Product update(ProductUpdateDto productdto, Long id);
     Optional<Product> findById(Long id);
     List<Product> findAll();
+    List<Product>findByNameOrSku(String name, String sku);
     Optional<Product>  findByName(String name);
     Optional<Product> findBySku(String sku);
     Boolean existsByName(String name);

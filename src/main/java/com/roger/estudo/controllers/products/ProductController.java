@@ -36,10 +36,46 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<?>> findAll() {
-        if (productService.findAll().isEmpty()) return ResponseEntity.noContent().build();
+    public ResponseEntity<List<?>> findAll(@RequestParam(required = false) String name, @RequestParam(required = false) String sku) {
+        List<Product> products;
 
-        return ResponseEntity.ok(productService.findAll());
+        if(name != null || sku != null) {
+            products = productService.findByNameOrSku(name, sku);
+        }else {
+            products = productService.findAll();
+        }
+        if (products.isEmpty()) return ResponseEntity.noContent().build();
+
+        List<ProductResponseDto> productResponseDtos = products.stream().map(product -> new ProductResponseDto(
+                    product.getId(),
+                    product.getName(),
+                    product.getPrice(),
+                    product.getDescription(),
+                    product.getSku(),
+                    product.getBrand(),
+                    product.getModel(),
+                    product.getColor(),
+                    product.getSize(),
+                    product.getGender(),
+                    product.getStatus(),
+                    product.getType(),
+                    product.getNetWeight(),
+                    product.getGrossWeight(),
+                    product.getWeightUnit(),
+                    product.getLength(),
+                    product.getWidth(),
+                    product.getHeight(),
+                    product.getVolume(),
+                    product.getDate_update(),
+                    product.getDate_create(),
+                    product.getCategory(),
+                    product.getImages().stream().map(image -> new ProductImagemDto(image.getUrl(), image.getAlt(), image.getPosition())).toList(),
+                    product.getAttributes().stream().map(attribute -> new ProductsAttributesDto(attribute.getName(), attribute.getValue(), attribute.getUnit())).toList(),
+                    product.getVariations().stream().map(variant -> new ProductVariantesDto(variant.getSku(), variant.getStatus(), variant.getAttributes().stream().map(attribute -> new ProductsAttributesDto(attribute.getName(), attribute.getValue(), attribute.getUnit())).toList())).toList()
+
+            )).toList();
+
+        return ResponseEntity.ok(productResponseDtos);
     }
 
     @PostMapping("/save")
