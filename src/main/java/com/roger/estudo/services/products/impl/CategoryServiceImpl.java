@@ -6,6 +6,7 @@ import com.roger.estudo.services.products.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -37,6 +38,11 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteById(id);
 
     }
+    @Override
+    public Optional<Category> findByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
 
     @Override
     public List<Category> findAll() {
